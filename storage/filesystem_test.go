@@ -124,7 +124,7 @@ func TestFilesystem_DeleteFile(t *testing.T) {
 	fs := NewFilesystem(dir)
 	ctx := context.Background()
 
-	fs.WriteFile(ctx, "temp.parquet", strings.NewReader("data"))
+	_ = fs.WriteFile(ctx, "temp.parquet", strings.NewReader("data"))
 
 	if err := fs.DeleteFile(ctx, "temp.parquet"); err != nil {
 		t.Fatalf("DeleteFile: %v", err)
