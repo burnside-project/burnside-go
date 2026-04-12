@@ -106,14 +106,43 @@ func (f *Filesystem) BasePath() string {
 var _ ReaderWriter = (*Filesystem)(nil)
 
 // ParseStorageURL returns the appropriate backend for a given URL/path.
-// For now, only filesystem paths are supported. S3/GCS added in a later release.
+// Supported schemes: s3://bucket/prefix, gs://bucket/prefix, or a local filesystem path.
+// For S3 and GCS, the caller must configure the client separately and use NewS3/NewGCS directly.
+// This function only handles filesystem paths and returns errors for cloud URLs with guidance.
 func ParseStorageURL(rawURL string) (ReaderWriter, error) {
 	if strings.HasPrefix(rawURL, "s3://") {
-		return nil, fmt.Errorf("S3 storage not yet implemented")
+		return nil, fmt.Errorf("S3 URL detected (%s) — use storage.NewS3(client, bucket, prefix) directly", rawURL)
 	}
 	if strings.HasPrefix(rawURL, "gs://") {
-		return nil, fmt.Errorf("GCS storage not yet implemented")
+		return nil, fmt.Errorf("GCS URL detected (%s) — use storage.NewGCS(client, bucket, prefix) directly", rawURL)
 	}
-	// Treat as filesystem path
 	return NewFilesystem(rawURL), nil
+}
+
+// ParseS3URL extracts bucket and prefix from an s3://bucket/prefix URL.
+func ParseS3URL(rawURL string) (bucket, prefix string, err error) {
+	if !strings.HasPrefix(rawURL, "s3://") {
+		return "", "", fmt.Errorf("not an S3 URL: %s", rawURL)
+	}
+	path := strings.TrimPrefix(rawURL, "s3://")
+	parts := strings.SplitN(path, "/", 2)
+	bucket = parts[0]
+	if len(parts) == 2 {
+		prefix = parts[1]
+	}
+	return bucket, prefix, nil
+}
+
+// ParseGCSURL extracts bucket and prefix from a gs://bucket/prefix URL.
+func ParseGCSURL(rawURL string) (bucket, prefix string, err error) {
+	if !strings.HasPrefix(rawURL, "gs://") {
+		return "", "", fmt.Errorf("not a GCS URL: %s", rawURL)
+	}
+	path := strings.TrimPrefix(rawURL, "gs://")
+	parts := strings.SplitN(path, "/", 2)
+	bucket = parts[0]
+	if len(parts) == 2 {
+		prefix = parts[1]
+	}
+	return bucket, prefix, nil
 }

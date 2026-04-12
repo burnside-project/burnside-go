@@ -149,9 +149,46 @@ func TestParseStorageURL(t *testing.T) {
 		t.Errorf("BasePath = %q", fs.BasePath())
 	}
 
-	// S3 not implemented
+	// S3 URL returns error with guidance
 	_, err = ParseStorageURL("s3://bucket/prefix")
 	if err == nil {
 		t.Error("expected error for s3://")
+	}
+
+	// GCS URL returns error with guidance
+	_, err = ParseStorageURL("gs://bucket/prefix")
+	if err == nil {
+		t.Error("expected error for gs://")
+	}
+}
+
+func TestParseS3URL(t *testing.T) {
+	bucket, prefix, err := ParseS3URL("s3://my-bucket/cdc/prod/")
+	if err != nil {
+		t.Fatal(err)
+	}
+	if bucket != "my-bucket" {
+		t.Errorf("bucket = %q", bucket)
+	}
+	if prefix != "cdc/prod/" {
+		t.Errorf("prefix = %q", prefix)
+	}
+
+	_, _, err = ParseS3URL("/local/path")
+	if err == nil {
+		t.Error("expected error for non-S3 URL")
+	}
+}
+
+func TestParseGCSURL(t *testing.T) {
+	bucket, prefix, err := ParseGCSURL("gs://my-bucket/cdc/prod/")
+	if err != nil {
+		t.Fatal(err)
+	}
+	if bucket != "my-bucket" {
+		t.Errorf("bucket = %q", bucket)
+	}
+	if prefix != "cdc/prod/" {
+		t.Errorf("prefix = %q", prefix)
 	}
 }
