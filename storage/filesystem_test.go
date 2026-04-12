@@ -73,7 +73,7 @@ func TestFilesystem_WriteAndReadFile(t *testing.T) {
 	if err != nil {
 		t.Fatalf("ReadFile: %v", err)
 	}
-	defer rc.Close()
+	defer func() { _ = rc.Close() }()
 	buf := make([]byte, 100)
 	n, _ := rc.Read(buf)
 	if string(buf[:n]) != content {
@@ -87,9 +87,9 @@ func TestFilesystem_ListFiles(t *testing.T) {
 	ctx := context.Background()
 
 	// Create some files
-	fs.WriteFile(ctx, "public.orders/deltas/epoch=000001.parquet", strings.NewReader("a"))
-	fs.WriteFile(ctx, "public.orders/deltas/epoch=000002.parquet", strings.NewReader("b"))
-	fs.WriteFile(ctx, "public.orders/base/base_000000.parquet", strings.NewReader("c"))
+	_ = fs.WriteFile(ctx, "public.orders/deltas/epoch=000001.parquet", strings.NewReader("a"))
+	_ = fs.WriteFile(ctx, "public.orders/deltas/epoch=000002.parquet", strings.NewReader("b"))
+	_ = fs.WriteFile(ctx, "public.orders/base/base_000000.parquet", strings.NewReader("c"))
 
 	files, err := fs.ListFiles(ctx, "public.orders/deltas/")
 	if err != nil {

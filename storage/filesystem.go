@@ -27,7 +27,7 @@ func (f *Filesystem) ReadManifest(_ context.Context) (*manifest.Manifest, error)
 	if err != nil {
 		return nil, fmt.Errorf("read manifest: %w", err)
 	}
-	defer file.Close()
+	defer func() { _ = file.Close() }()
 	return manifest.Read(file)
 }
 
