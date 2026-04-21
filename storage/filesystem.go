@@ -9,7 +9,7 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/dataalgebra-engineering/burnside-project-burnside-go/manifest"
+	"github.com/burnside-project/burnside-go/manifest"
 )
 
 // Filesystem implements ReaderWriter using the local filesystem.

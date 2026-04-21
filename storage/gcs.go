@@ -10,7 +10,7 @@ import (
 	gcs "cloud.google.com/go/storage"
 	"google.golang.org/api/iterator"
 
-	"github.com/dataalgebra-engineering/burnside-project-burnside-go/manifest"
+	"github.com/burnside-project/burnside-go/manifest"
 )
 
 // GCS implements ReaderWriter using Google Cloud Storage.

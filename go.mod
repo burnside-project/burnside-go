@@ -1,4 +1,4 @@
-module github.com/dataalgebra-engineering/burnside-project-burnside-go
+module github.com/burnside-project/burnside-go
 
 go 1.25.0
 

@@ -6,7 +6,7 @@ import (
 	"context"
 	"io"
 
-	"github.com/dataalgebra-engineering/burnside-project-burnside-go/manifest"
+	"github.com/burnside-project/burnside-go/manifest"
 )
 
 // Reader provides read access to a CDC output location.

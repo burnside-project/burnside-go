@@ -11,7 +11,7 @@ import (
 	"github.com/aws/aws-sdk-go-v2/feature/s3/transfermanager"
 	"github.com/aws/aws-sdk-go-v2/service/s3"
 
-	"github.com/dataalgebra-engineering/burnside-project-burnside-go/manifest"
+	"github.com/burnside-project/burnside-go/manifest"
 )
 
 // Default multipart upload settings. PartSize of 64 MiB and Concurrency of 4

@@ -8,7 +8,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/dataalgebra-engineering/burnside-project-burnside-go/manifest"
+	"github.com/burnside-project/burnside-go/manifest"
 )
 
 func TestFilesystem_WriteAndReadManifest(t *testing.T) {
