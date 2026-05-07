@@ -35,6 +35,7 @@ type Table struct {
 	Partition        string   `json:"partition,omitempty"`
 	PrimaryKey       []string `json:"primary_key,omitempty"`
 	SchemaVersion    int      `json:"schema_version,omitempty"`
+	PolicyVersion    int      `json:"policy_version,omitempty"`
 	BaseEpoch        int64    `json:"base_epoch"`
 	LatestDeltaEpoch int64    `json:"latest_delta_epoch"`
 	RowCount         int64    `json:"row_count,omitempty"`

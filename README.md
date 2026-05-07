@@ -12,6 +12,7 @@ Pure Go. No CGO.
 | `storage` | Storage interface + adapters (filesystem, S3, GCS) |
 | `epoch` | Epoch ordering, watermark comparison, filename parsing |
 | `types` | Column types, Postgres-to-Parquet mapping, CDC metadata constants |
+| `contract` | Wire types for pg-cdc → pg-warehouse HTTP API (list_tables, snapshot, freshness) |
 
 ## Install
 
